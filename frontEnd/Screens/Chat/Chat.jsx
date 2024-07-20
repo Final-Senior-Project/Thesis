@@ -9,7 +9,7 @@ import SessionStorage from "react-native-session-storage";
 
 const Chat = () => {
   const id = SessionStorage.getItem('userid');
-  const [rooms, setRooms] = useState([]);
+  const [rooms, setRooms] = useState([])
 console.log("room",rooms);
   const getRoom = async () => {
     try {
@@ -22,7 +22,7 @@ console.log("room",rooms);
 
   useEffect(() => {
     getRoom();
-  }, []);
+  }, [])
 
   return (
     <SafeAreaView style={styles.chatscreen}>

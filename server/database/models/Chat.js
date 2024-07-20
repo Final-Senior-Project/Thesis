@@ -10,7 +10,10 @@ const Chat = sequelize.define('Chat', {
     allowNull: false,
   },
   userId:{type:DataTypes.INTEGER},
-  ownerId:{type:DataTypes.INTEGER}
+  ownerId:{type:DataTypes.INTEGER},
+  sender:{
+    type:DataTypes.INTEGER,allowNull:false
+  }
 
 });
 Owner.hasMany(Chat,{foreignKey:"ownerId",as:"Chat"})

@@ -8,13 +8,15 @@ import SessionStorage from "react-native-session-storage";
 import OwnerAllChats from "./OwnerAllChats";
 
 const Chat = () => {
-  const id = SessionStorage.getItem('ownerid');
   const [rooms, setRooms] = useState([]);
-
+  const id =  SessionStorage.getItem('ownerid');
+  
   const getRoom = async () => {
     try {
       const res = await axios.post(`${APP_API_URL}/chat/getRoom`, { ownerId:id });
       setRooms(res.data);
+      
+      console.log("rooms",res.data);
     } catch (error) {
       console.log("err", error);
     }
@@ -37,15 +39,17 @@ const Chat = () => {
 
       <View style={styles.chatlistContainer}>
         {rooms.length > 0 ? (
+          
           <FlatList
             data={rooms}
-            renderItem={({ item }) => <OwnerAllChats iduser={item} />}
-            keyExtractor={(item) => item.id}
+            renderItem={( {item} ) => <OwnerAllChats data={item} />}
+            keyExtractor={(item) => item}
           />
+        
         ) : (
           <View style={styles.chatemptyContainer}>
             <Text style={styles.chatemptyText}>There is no chat!</Text>
-            <Text>Please chat with the owner</Text>
+            <Text>Please chat with the client</Text>
           </View>
         )}
       </View>

@@ -47,13 +47,14 @@ const getUserEmail=async(req,res)=>{
 const getUserId = async (req, res) => {
   const {id}=req.params
   try {
-    const userid = await User.findOne({
+    const userid = await User.findAll({
       where: { id: id },
     });
-    console.log("ownerid",req.params.id);
+    console.log("userid",id);
     res.json(userid);
+    console.log("user",userid);
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 const login=(req,res)=>{

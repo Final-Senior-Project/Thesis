@@ -136,17 +136,17 @@ const ProductsDetails = ({ deleteProduct, switchView, isOwner }) => {
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
     >
-      <TouchableOpacity
-        onPress={() => {
-          handleCreateRoom();
-          navigation.navigate("Chats");
-        }}
-      >
-        <Ionicons name="chatbubble-ellipses-outline" size={24} color="black" />
-      </TouchableOpacity>
-      <ScrollView style={styles.container}>
-        <View style={styles.card}>
-          <Image source={{ uri: mainImage }} style={styles.image} />
+    <TouchableOpacity
+      onPress={() => {
+        handleCreateRoom();
+        navigation.navigate("ownerchats",{userid});
+      }}
+    >
+    <Ionicons name="chatbubble-ellipses-outline" size={24} color="black" />
+    </TouchableOpacity>
+    <ScrollView style={styles.container}>
+      <View style={styles.card}>
+        <Image source={{ uri: mainImage }} style={styles.image} />
 
           <FlatList
             data={property.image}
@@ -224,7 +224,7 @@ const ProductsDetails = ({ deleteProduct, switchView, isOwner }) => {
             <Text style={styles.commentsTitle}>Comments:</Text>
           </View>
 
-          <Bottomsheet />
+          <Bottomsheet propertyid={propertyid}/>
         </View>
       </ScrollView>
     </View>

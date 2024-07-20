@@ -27,7 +27,7 @@ const ProductDetails = ({ addToCart, deleteProduct, switchView, isOwner }) => {
   const toast = useToast()
 
   const navigation = useNavigation();
-  const socket = io('http://192.168.103.3:3000');
+  const socket=io('http://192.168.139.186:3000')
   const route = useRoute();
   const propertyId = route.params?.propertyId;
   const userid = route.params?.userid;
@@ -38,7 +38,6 @@ const ProductDetails = ({ addToCart, deleteProduct, switchView, isOwner }) => {
   const [liked, setLiked] = useState(false);
   const [userRating, setUserRating] = useState(0);
   const [avgRating, setAvgRating] = useState(null);
-  // const { initPaymentSheet, presentPaymentSheet } = useStripe();
   const ownerid = SessionStorage.getItem('ownerid');
   const [refreshing, setRefreshing] = useState(false);
 
@@ -48,41 +47,11 @@ const ProductDetails = ({ addToCart, deleteProduct, switchView, isOwner }) => {
       setRefreshing(false);
     }, 2000);
   }, []);
+
   const handleCreateRoom = () => {
     socket.emit('createRoom', 'roomsList');
-    navigation.navigate("Chats", { ownerid });
+    navigation.navigate("Chats", { idOwner:ownerid });
   };
-
-  const openPaymentSheet = async () => {
-    try {
-      const { error } = await presentPaymentSheet();
-      if (error) {
-        toast.show({
-          type: 'error',
-          text1: `Error code: ${error.code}`,
-          text2: error.message,
-          position: 'top',
-          topOffset: 0,
-        });
-        console.error("Error presenting payment sheet:", error);
-      } else {
-        axios
-          .get(`${APP_API_URL}/owner/booked/${userid}`)
-          .then(() => {
-            toast.show({
-              type: 'success',
-              text1: 'Your payment has been processed successfully!',
-            });
-          })
-          .catch((error) => {
-            console.error("Error processing payment:", error);
-          });
-      }
-    } catch (error) {
-      console.error("Error presenting payment sheet:", error);
-    }
-  };
-
   const getPropertyRating = async (id) => {
     try {
       const res = await axios.get(`${APP_API_URL}/property/rate/${id}`);
@@ -141,7 +110,7 @@ const ProductDetails = ({ addToCart, deleteProduct, switchView, isOwner }) => {
   const addWishList = async (userid, propertyId) => {
     try {
       const res = await axios.post(
-        ` ${APP_API_URL}/wishlist/add/${propertyId}/${userid}`,
+         `${APP_API_URL}/wishlist/add/${propertyId}/${userid}`,
         {
           UserId: userid,
           PropertyId: propertyId,
@@ -158,6 +127,7 @@ const ProductDetails = ({ addToCart, deleteProduct, switchView, isOwner }) => {
       console.log(error);
     }
   };
+
 
   const handelWishList = () => {
     addWishList(userid, propertyId);
@@ -181,9 +151,6 @@ const ProductDetails = ({ addToCart, deleteProduct, switchView, isOwner }) => {
 
   return (
     <View style={styles.container} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
-      <TouchableOpacity onPress={handleCreateRoom}>
-        <Ionicons name="chatbubble-ellipses-outline" size={24} color="black" />
-      </TouchableOpacity>
       <ScrollView style={styles.container}>
         <View style={styles.card}>
           <Image source={{ uri: mainImage }} style={styles.image} />
@@ -200,6 +167,9 @@ const ProductDetails = ({ addToCart, deleteProduct, switchView, isOwner }) => {
             )}
           />
 
+      <TouchableOpacity onPress={handleCreateRoom}>
+        <Ionicons name="chatbubble-ellipses-outline" size={24} color="black" />
+      </TouchableOpacity>
           <TouchableOpacity style={styles.likeButton} onPress={handelWishList}>
             <AntDesign name={liked ? "heart" : "hearto"} size={24} color={liked ? "red" : "black"} />
           </TouchableOpacity>

@@ -9,7 +9,6 @@ import styles from "./styles.jsx";
 import { APP_API_URL } from "../../env.js";
 import SessionStorage from "react-native-session-storage";
 import { useNavigation, useRoute } from "@react-navigation/native";
-
 import Toast from 'react-native-toast-message';
 
 const Wishlist = () => {
@@ -32,14 +31,13 @@ const Wishlist = () => {
   const fetchWishlist = async () => {
     try {
       const response = await axios.get(`${APP_API_URL}/wishlist/get/${userid}`);
-      setWishlist(response.data[0].Properties);
+      setWishlist(response.data);
       setUpd(!upd);
-      console.log("wishlist", response.data[0].Properties);
+      console.log("wishlist", response.data);
     } catch (error) {
       console.error(error);
     }
   };
-
   useEffect(() => {
     fetchWishlist();
   }, [refreshing]);
