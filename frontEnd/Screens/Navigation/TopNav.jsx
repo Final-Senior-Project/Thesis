@@ -10,17 +10,10 @@ const TopNav = ({ route }) => {
   return (
     <View>
       <ScrollView>
-        <View style={{ marginTop: 10 }}>
-          {/* <ResImage
-            source={
-              "https://www.sme-news.co.uk/wp-content/uploads/2021/11/Login.jpg"
-            }
-            width={"100%"}
-            height={200}
-            mode={"contain"}
-          /> */}
+        <View style={{ marginTop: 30 }}>
+     
 
-          <Tab.Navigator style={{ height: 850 }}>
+          <Tab.Navigator style={{ height: 805 }}>
             <Tab.Screen name="LogIn" component={LogInUser} />
             <Tab.Screen
               name="SignUp"

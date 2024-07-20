@@ -141,16 +141,22 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     borderRadius: 10,
   },
-  button: {
-    backgroundColor: '#007BFF',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 10,
-    margin: 10,
+  addButton: {
+    alignSelf: 'center',
+    backgroundColor: "#4d8790",
+    paddingVertical: 14,
+    paddingHorizontal: 50,
+    borderRadius: 35,
+    marginTop: 90,
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    right:10
+   
+ 
   },
-  buttonText: {
+  addButtonText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 15,
   },
   uploadButton: {
     backgroundColor: '#007BFF',

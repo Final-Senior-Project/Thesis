@@ -8,8 +8,10 @@ import { useStripe } from "@stripe/stripe-react-native";
 import SessionStorage from 'react-native-session-storage';
 import Toast from 'react-native-toast-message';
 import { useRoute, useNavigation } from "@react-navigation/native";
+import { useToast } from 'react-native-fast-toast'
 
 const Calender = () => {
+  const toast = useToast()
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [selectedDate, setSelectedDate] = useState(false);
@@ -158,9 +160,10 @@ const Calender = () => {
         axios
           .get(`${APP_API_URL}/owner/booked/${userId}`)
           .then(() => {
-            Toast.show({
+            toast.show("payment successfully !",{
               type: 'success',
-              text1: 'Your payment has been processed successfully!',
+          animationType:"slide-in",
+              position: 'top',
             });
           })
           .catch((error) => {

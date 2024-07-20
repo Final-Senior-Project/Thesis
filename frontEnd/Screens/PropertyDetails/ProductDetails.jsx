@@ -20,11 +20,14 @@ import AddComment from "../Comment/AddComment";
 import { io } from 'socket.io-client';
 import { Ionicons } from '@expo/vector-icons';
 import Toast from 'react-native-toast-message';
+import { useToast } from 'react-native-fast-toast'
 
 
 const ProductDetails = ({ addToCart, deleteProduct, switchView, isOwner }) => {
+  const toast = useToast()
+
   const navigation = useNavigation();
-  const socket = io('http://192.168.103.3:3000');
+  const socket=io('http://192.168.139.186:3000')
   const route = useRoute();
   const propertyId = route.params?.propertyId;
   const userid = route.params?.userid;
@@ -35,7 +38,6 @@ const ProductDetails = ({ addToCart, deleteProduct, switchView, isOwner }) => {
   const [liked, setLiked] = useState(false);
   const [userRating, setUserRating] = useState(0);
   const [avgRating, setAvgRating] = useState(null);
-  // const { initPaymentSheet, presentPaymentSheet } = useStripe();
   const ownerid = SessionStorage.getItem('ownerid');
   const [refreshing, setRefreshing] = useState(false);
 
@@ -46,51 +48,10 @@ const ProductDetails = ({ addToCart, deleteProduct, switchView, isOwner }) => {
     }, 2000);
   }, []);
 
-//   const fetchPaymentSheetParams = async () => {
-//     const response = await axios.post(`${APP_API_URL}/payment/${222}`);
-//     const { paymentIntent } = response.data;
-//     const initResponse = initPaymentSheet({
-//       merchantDisplayName: "finalproj",
-//       paymentIntentClientSecret: paymentIntent,
-//     });
-//     return initResponse;
-//   };
-
   const handleCreateRoom = () => {
     socket.emit('createRoom', 'roomsList');
-    navigation.navigate("Chats", { ownerid });
+    navigation.navigate("Chats", { idOwner:ownerid });
   };
-
-  const openPaymentSheet = async () => {
-    try {
-      const { error } = await presentPaymentSheet();
-      if (error) {
-        Toast.show({
-          type: 'error',
-          text1: `Error code: ${error.code}`,
-          text2: error.message,
-          position: 'top',
-          topOffset: 0,
-        });
-        console.error("Error presenting payment sheet:", error);
-      } else {
-        axios
-          .get(`${APP_API_URL}/owner/booked/${userid}`)
-          .then(() => {
-            Toast.show({
-              type: 'success',
-              text1: 'Your payment has been processed successfully!',
-            });
-          })
-          .catch((error) => {
-            console.error("Error processing payment:", error);
-          });
-      }
-    } catch (error) {
-      console.error("Error presenting payment sheet:", error);
-    }
-  };
-
   const getPropertyRating = async (id) => {
     try {
       const res = await axios.get(`${APP_API_URL}/property/rate/${id}`);
@@ -99,7 +60,19 @@ const ProductDetails = ({ addToCart, deleteProduct, switchView, isOwner }) => {
       console.log(err);
     }
   };
-
+  const showtoast = () => {
+ 
+    toast.show({
+ 
+      type: 'success',
+ 
+      text1: 'Hello',
+ 
+      text2: 'This is a toast notification!',
+ 
+    });
+ 
+  };
   useEffect(() => {
     const getProperty = (id) => {
       axios
@@ -117,7 +90,7 @@ const ProductDetails = ({ addToCart, deleteProduct, switchView, isOwner }) => {
       getProperty(propertyId);
       getPropertyRating(propertyId);
     }
-    // fetchPaymentSheetParams();
+   
   }, [propertyId]);
 
   const openImageModal = (img) => {
@@ -137,13 +110,13 @@ const ProductDetails = ({ addToCart, deleteProduct, switchView, isOwner }) => {
   const addWishList = async (userid, propertyId) => {
     try {
       const res = await axios.post(
-        ` ${APP_API_URL}/wishlist/add/${propertyId}/${userid}`,
+         `${APP_API_URL}/wishlist/add/${propertyId}/${userid}`,
         {
           UserId: userid,
           PropertyId: propertyId,
         }
       );
-      Toast.show({
+      toast.show({
         type: 'success',
         text1: 'Wishlist added!',
         position: 'bottom',
@@ -155,6 +128,7 @@ const ProductDetails = ({ addToCart, deleteProduct, switchView, isOwner }) => {
     }
   };
 
+
   const handelWishList = () => {
     addWishList(userid, propertyId);
   };
@@ -165,12 +139,10 @@ const ProductDetails = ({ addToCart, deleteProduct, switchView, isOwner }) => {
         rating,
       });
       setUserRating(response.data);
-      Toast.show({
+      toast.show("Rating Submitted !",{
         type: 'success',
-        text1: 'Success',
-        text2: 'Rating submitted successfully',
-        position: 'bottom',
-        bottomOffset:800,
+    animationType:"slide-in",
+        position: 'top',
       });
     } catch (error) {
       console.error("Error submitting rating:", error);
@@ -179,9 +151,6 @@ const ProductDetails = ({ addToCart, deleteProduct, switchView, isOwner }) => {
 
   return (
     <View style={styles.container} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
-      <TouchableOpacity onPress={handleCreateRoom}>
-        <Ionicons name="chatbubble-ellipses-outline" size={24} color="black" />
-      </TouchableOpacity>
       <ScrollView style={styles.container}>
         <View style={styles.card}>
           <Image source={{ uri: mainImage }} style={styles.image} />
@@ -198,6 +167,9 @@ const ProductDetails = ({ addToCart, deleteProduct, switchView, isOwner }) => {
             )}
           />
 
+      <TouchableOpacity onPress={handleCreateRoom}>
+        <Ionicons name="chatbubble-ellipses-outline" size={24} color="black" />
+      </TouchableOpacity>
           <TouchableOpacity style={styles.likeButton} onPress={handelWishList}>
             <AntDesign name={liked ? "heart" : "hearto"} size={24} color={liked ? "red" : "black"} />
           </TouchableOpacity>
@@ -224,9 +196,9 @@ const ProductDetails = ({ addToCart, deleteProduct, switchView, isOwner }) => {
               </Text> 
             </View>
             <View style={styles.propertyDetailItem}> 
-              <Text>  
-              <FontAwesome name="bath" size={24} color="black" />
+              <Text> 
               {property.Bathroom} 
+              <FontAwesome name="bath" size={24} color="black" />
               </Text>
            </View>
             <View style={styles.propertyDetailItem}>
@@ -243,7 +215,7 @@ const ProductDetails = ({ addToCart, deleteProduct, switchView, isOwner }) => {
                </View>
             <View style={styles.propertyDetailItem}>
              <Text>
-              {property.Person} 
+              {property.person} 
               <FontAwesome6 name="person" size={24} color="black" />
              </Text> 
              </View>
@@ -259,12 +231,12 @@ const ProductDetails = ({ addToCart, deleteProduct, switchView, isOwner }) => {
           <View style={styles.ratingContainer}>
             <Text style={styles.ratingText}>Rate this product:</Text>
             <AirbnbRating
-              count={5}
-              defaultRating={userRating}
-              size={20}
-              showRating={false}
-              onFinishRating={handleRatingCompleted}
-            />
+      count={5}
+      defaultRating={userRating}
+      size={20}
+      showRating={false}
+      onFinishRating={handleRatingCompleted}
+    />
           </View>
 
           <Modal visible={modalVisible} transparent={true} animationType="slide" onRequestClose={closeImageModal}>

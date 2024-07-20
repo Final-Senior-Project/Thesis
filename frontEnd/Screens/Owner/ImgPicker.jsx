@@ -125,7 +125,7 @@ export default Photo;
 const styles = StyleSheet.create({
   addButton: {
     alignSelf: 'center',
-    backgroundColor: "#800020",
+    backgroundColor: "#4d8790",
     paddingVertical: 14,
     paddingHorizontal: 50,
     borderRadius: 35,

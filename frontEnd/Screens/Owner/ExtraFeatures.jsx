@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet } from 
 import { useNavigation, useRoute } from '@react-navigation/native';
 import axios from 'axios';
 import { APP_API_URL } from '../../env';
+import { MaterialIcons, FontAwesome, FontAwesome6, MaterialCommunityIcons, FontAwesome5,AntDesign } from '@expo/vector-icons';
 
 const ExtraFeatures = () => {
     const route = useRoute();
@@ -26,20 +27,6 @@ const ExtraFeatures = () => {
         }
     };
 
-    const incrementFeature = (feature) => {
-        setFeatures((prevFeatures) => ({
-            ...prevFeatures,
-            [feature]: prevFeatures[feature] + 1,
-        }));
-    };
-
-    const decrementFeature = (feature) => {
-        setFeatures((prevFeatures) => ({
-            ...prevFeatures,
-            [feature]: prevFeatures[feature] > 0 ? prevFeatures[feature] - 1 : 0,
-        }));
-    };
-
     const handleExtra = () => {
         addExtra();
         navigation.navigate('img', { propertyid });
@@ -48,77 +35,84 @@ const ExtraFeatures = () => {
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
             <View style={styles.formContainer}>
-                <View style={styles.form}>
+                <View style={styles.gridContainer}>
+                    <View style={styles.gridItem}>
                     <Text style={styles.label}>Bedroom</Text>
-                    <View style={styles.inputRow}>
-                        <TouchableOpacity onPress={() => decrementFeature('bedroom')} style={styles.incrementButton}>
-                            <Text style={styles.incrementButtonText}>-</Text>
-                        </TouchableOpacity>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Bedroom"
-                            keyboardType="numeric"
-                            value={Bedroom}
-                            onChangeText={(text) => setBedroom(text)}
-                        />
-                        <TouchableOpacity onPress={() => incrementFeature('bedroom')} style={styles.incrementButton}>
-                            <Text style={styles.incrementButtonText}>+</Text>
-                        </TouchableOpacity>
+                        <View style={styles.inputRow}>
+                            <MaterialIcons name="bedroom-parent" size={30} color="#9cc0c9" />
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Bedroom"
+                                keyboardType="numeric"
+                                value={Bedroom}
+                                onChangeText={(text) => setBedroom(text)}
+                            />
+                        </View>
+                        
                     </View>
 
+                    <View style={styles.gridItem}>
                     <Text style={styles.label}>Bathroom</Text>
-                    <View style={styles.inputRow}>
-                        <TouchableOpacity onPress={() => decrementFeature('bathroom')} style={styles.incrementButton}>
-                            <Text style={styles.incrementButtonText}>-</Text>
-                        </TouchableOpacity>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Bathroom"
-                            keyboardType="numeric"
-                            value={Bathroom}
-                            onChangeText={(text) => setBathroom(text)}
-                        />
-                        <TouchableOpacity onPress={() => incrementFeature('bathroom')} style={styles.incrementButton}>
-                            <Text style={styles.incrementButtonText}>+</Text>
-                        </TouchableOpacity>
+                        <View style={styles.inputRow}>
+                            <FontAwesome name="bath" size={30} color="#9cc0c9" />
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Bathroom"
+                                keyboardType="numeric"
+                                value={Bathroom}
+                                onChangeText={(text) => setBathroom(text)}
+                            />
+                        </View>
+                        
                     </View>
 
+                    <View style={styles.gridItem}>
                     <Text style={styles.label}>Person</Text>
-                    <View style={styles.inputRow}>
-                        <TouchableOpacity onPress={() => decrementFeature('person')} style={styles.incrementButton}>
-                            <Text style={styles.incrementButtonText}>-</Text>
-                        </TouchableOpacity>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Person"
-                            keyboardType="numeric"
-                            value={person}
-                            onChangeText={(text) => setPerson(text)}
-                        />
-                        <TouchableOpacity onPress={() => incrementFeature('person')} style={styles.incrementButton}>
-                            <Text style={styles.incrementButtonText}>+</Text>
-                        </TouchableOpacity>
+                        <View style={styles.inputRow}>
+                            <FontAwesome6 name="person" size={30} color="#9cc0c9" />
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Person"
+                                keyboardType="numeric"
+                                value={person}
+                                onChangeText={(text) => setPerson(text)}
+                            />
+                        </View>
+                        
                     </View>
 
+                    <View style={styles.gridItem}>
                     <Text style={styles.label}>AC</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="yes or no"
-                        value={Ac}
-                        onChangeText={setAc}
-                    />
+                        <View style={styles.inputRow}>
+                          
+                            <MaterialCommunityIcons name="fan-minus" size={30} color="#9cc0c9" />
+                            <TextInput
+                                style={styles.input}
+                                placeholder="AC (yes or no)"
+                                value={Ac}
+                                onChangeText={setAc}
+                            />
+                        </View>
+                        
+                    </View>
 
-                    <Text style={styles.label}>Pool</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="yes or no"
-                        value={Pool}
-                        onChangeText={setPool}
-                    />
+                    <View style={styles.gridItemp}>
+                    <Text style={styles.labelp}>Pool</Text>
+                        <View style={styles.inputRow}>
+                            <FontAwesome5 style={styles.picon} name="swimming-pool" size={30} color="#9cc0c9" />
+                            <TextInput
+                                style={styles.inputp}
+                                placeholder="Pool (yes or no)"
+                                value={Pool}
+                                onChangeText={setPool}
+                            />
+                        </View>
+                        
+                    </View>
                 </View>
 
                 <TouchableOpacity style={styles.button} onPress={handleExtra}>
-                    <Text style={styles.buttonText}>Next</Text>
+                    <Text style={styles.buttonText}>Next <AntDesign style={styles.buttonText} name="arrowright" size={24} color="white" /></Text>
                 </TouchableOpacity>
             </View>
         </ScrollView>
@@ -127,76 +121,97 @@ const ExtraFeatures = () => {
 
 const styles = StyleSheet.create({
     scrollContainer: {
-      flexGrow: 1,
-      justifyContent: 'center',
-      padding: 20,
-      backgroundColor: '#f9f9f9',
+        flexGrow: 1,
+        justifyContent: 'center',
+        padding: 20,
+        backgroundColor: '#f9f9f9',
     },
     formContainer: {
-      justifyContent: 'center',
-      alignItems: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
-    form: {
-      width: '100%',
-      justifyContent: 'center',
-      marginBottom: 20,
+    gridContainer: {
+        width: '100%',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
     },
-    label: {
-      fontSize: 18,
-      color: '#333',
-      marginBottom: 10,
+    gridItem: {
+        width: '45%',
+        alignItems: 'center',
+        marginBottom: 20,
     },
     inputRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      marginBottom: 25,
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: '100%',
     },
     input: {
-      height: 50,
-      borderColor: '#ccc',
-      borderWidth: 1,
-      borderRadius: 10,
-      paddingHorizontal: 10,
-      flex: 1,
-      textAlign: 'center',
-      backgroundColor: '#fff',
-      shadowColor: '#000',
-      shadowOffset: { width: 0, height: 1 },
-      shadowOpacity: 0.1,
-      shadowRadius: 5,
+        height: 50,
+        borderColor: '#ccc',
+        borderWidth: 1,
+        borderRadius: 10,
+        paddingHorizontal: 10,
+        textAlign: 'center',
+        backgroundColor: '#fff',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
+        flex: 1,
+        marginLeft: 10,
     },
-    icon: {
-      marginRight: 10,
-    },
-    incrementButton: {
-      width: 40,
-      height: 40,
-      justifyContent: 'center',
-      alignItems: 'center',
-      borderRadius: 20,
-      backgroundColor: '#007BFF',
-      marginHorizontal: 5,
-    },
-    incrementButtonText: {
-      color: '#fff',
-      fontSize: 20,
+    label: {
+        fontSize: 16,
+        color: '#000000',
+        marginTop: 10,
+        
     },
     button: {
-      alignSelf: 'flex-end',
-      backgroundColor: '#007BFF',
-      paddingVertical: 10,
-      paddingHorizontal: 20,
-      borderRadius: 10,
-      marginTop: 20,
-      shadowOpacity: 0.2,
-      shadowRadius: 5,
+        backgroundColor: '#4d8790',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 10,
+        marginTop: 100,
+        shadowOpacity: 0.2,
+        shadowRadius: 5,
+        margin:'auto',
+        right:-120
     },
     buttonText: {
-      color: '#fff',
-      fontSize: 16,
+        color: '#fff',
+        fontSize: 16,
+        margin:'auto'
     },
-  });
-  
-  
+    inputp:{
+      height: 50,
+        borderColor: '#ccc',
+        borderWidth: 1,
+        borderRadius: 10,
+        paddingHorizontal: 10,
+        textAlign: 'center',
+        backgroundColor: '#fff',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
+        flex: 1,
+       
+       
+    },
+    gridItemp:{
+      margin:'auto',
+      width: '50%'
+    },
+    labelp:{
+  margin:'auto',
+  fontSize: 16,
+  color: '#000000',
+  marginTop: 10,
+    },
+    picon:{
+    right:10
+    }
+});
 
 export default ExtraFeatures;

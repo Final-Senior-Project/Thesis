@@ -126,11 +126,11 @@ export const styles = StyleSheet.create({
   },
   propertyDetailsContainer:{
     display: "flex",
-    gap:40,
+    gap:25,
     flexDirection: "row",
     margin:"auto",
     padding:40,
-    right:15
+    left:-10
   },
   extraTitle:{
     fontSize: 17,

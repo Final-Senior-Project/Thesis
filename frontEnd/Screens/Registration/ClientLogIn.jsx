@@ -7,8 +7,10 @@ import { useNavigation } from "@react-navigation/native";
 import { APP_API_URL } from "../../env";
 import SessionStorage from "react-native-session-storage";
 import Toast from 'react-native-toast-message';
+import { useToast } from 'react-native-fast-toast'
 
 const ClientLogin = () => {
+  const toast = useToast()
   const navigation = useNavigation();
 
   const [emailUser, setEmailUser] = useState("");
@@ -37,23 +39,19 @@ const ClientLogin = () => {
       SessionStorage.setItem("userToken", res.data.token);
       console.log("userid", res.data.id);
       console.log("usertoken", res.data.token);
-      Toast.show({
+      toast.show("Login Successfully !",{
         type: 'success',
-        text1: 'Login successful',
-        position: 'bottom',
-        bottomOffset:800,
+    animationType:"slide-in",
+        position: 'top',
       });
       navigation.navigate("Navigation", { screen: "Navigation" });
 
     } catch (err) {
       console.error(err);
-      Toast.show({
-        type: 'error',
-        text1: 'Login failed',
-        text2: 'Please check your credentials and try again.',
-        position: 'bottom',
-        bottomOffset:800,
-        
+      toast.show("Login failed !",{
+        type: 'danger',
+    animationType:"slide-in",
+        position: 'top',
       });
     }
   };
@@ -64,7 +62,7 @@ const ClientLogin = () => {
     <View style={styles.container}>
       <Text style={styles.title}>Welcome Back!</Text>
       <Image
-        source={{ uri: "https://cdn.discordapp.com/attachments/1235498402746335293/1260214654999728158/TuniGo_1.png?ex=6697bc5b&is=66966adb&hm=77c94ba0c4e56bf2546428a066eab5eaa1bec8550facb30c30cf449d0d6389fc&" }}
+        source={{ uri: "https://cdn.discordapp.com/attachments/1235498402746335293/1260214654999728158/TuniGo_1.png?ex=669b081b&is=6699b69b&hm=1b0f2631de40c85b58cf7a7cf8ff389f91adfd29e34345705c56fff8df84ba09&" }}
         style={styles.image}
       />
       <View style={styles.wrapper}>

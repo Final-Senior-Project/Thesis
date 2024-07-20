@@ -198,7 +198,7 @@ const HomePage = () => {
                   {property.location}
                 </Text>
                 <Text style={styles.tripPrice}>
-                  dt {property.Price} / Visit{" "}
+                   {property.Price} dt / Visit{" "}
                   <TouchableOpacity style={styles.likeButton} onPress={handelWishList}  >
                   <Ionicons name="heart-outline" size={20} color="#000" style={styles.heart} />
                   </TouchableOpacity>
@@ -209,7 +209,7 @@ const HomePage = () => {
         </ScrollView>
       </View>
       <View style={styles.tripsHeader}>
-        <Text style={styles.sectionTitle}>Top Houses</Text>
+        <Text style={styles.sectionTitle}>New Offers</Text>
         <TouchableOpacity onPress={() => navigation.navigate("AllProperties")}>
           <Text style={styles.seeAllText}>See All</Text>
         </TouchableOpacity>
@@ -273,7 +273,8 @@ const HomePage = () => {
                     {property.location}
                   </Text>
                   <Text style={styles.propertyPrice}>
-                    dt {property.Price} / Visit{" "}
+                     {property.Price} dt / Visit{" "}
+                     
                       <Ionicons
                       name="heart-outline"
                       size={20}
@@ -427,7 +428,7 @@ const styles = StyleSheet.create({
   },
   heart:{
     flex: 1,
-    
+
     position:'absolute',
     left:40,
     bottom:'10%'

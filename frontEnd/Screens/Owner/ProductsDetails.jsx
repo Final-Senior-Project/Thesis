@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import EvilIcons from "@expo/vector-icons/EvilIcons";
 import { styles } from "./ProductsDetails.styles";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign,MaterialIcons,FontAwesome5,FontAwesome6,MaterialCommunityIcons,FontAwesome  } from "@expo/vector-icons";
 import axios from "axios";
 import { useStripe } from "@stripe/stripe-react-native";
 import { APP_API_URL } from "../../env";
@@ -136,17 +136,17 @@ const ProductsDetails = ({ deleteProduct, switchView, isOwner }) => {
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
     >
-      <TouchableOpacity
-        onPress={() => {
-          handleCreateRoom();
-          navigation.navigate("Chats");
-        }}
-      >
-        <Ionicons name="chatbubble-ellipses-outline" size={24} color="black" />
-      </TouchableOpacity>
-      <ScrollView style={styles.container}>
-        <View style={styles.card}>
-          <Image source={{ uri: mainImage }} style={styles.image} />
+    <TouchableOpacity
+      onPress={() => {
+        handleCreateRoom();
+        navigation.navigate("ownerchats",{userid});
+      }}
+    >
+    <Ionicons name="chatbubble-ellipses-outline" size={24} color="black" />
+    </TouchableOpacity>
+    <ScrollView style={styles.container}>
+      <View style={styles.card}>
+        <Image source={{ uri: mainImage }} style={styles.image} />
 
           <FlatList
             data={property.image}
@@ -162,6 +162,43 @@ const ProductsDetails = ({ deleteProduct, switchView, isOwner }) => {
           <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
             <Text style={styles.title}>{property.Name}</Text>
             <Text style={styles.ratingText}>⭐ {avgRating ? avgRating.toFixed(2) : "No ratings yet"}</Text>
+          </View>
+          <Text style={styles.description}>{property.description}</Text>
+          <View style={styles.commentsContainer}>
+          <Text style={styles.extraTitle}>House Plan Details</Text>
+          <View style={styles.propertyDetailsContainer}>
+            <View style={styles.propertyDetailItem}>
+            <Text>
+              {property.Bedroom}  
+              <MaterialIcons name="bedroom-parent" size={24} color="black" />
+              </Text> 
+            </View>
+            <View style={styles.propertyDetailItem}> 
+              <Text>  
+              {property.Bathroom}
+              <FontAwesome name="bath" size={24} color="black" />
+               
+              </Text>
+           </View>
+            <View style={styles.propertyDetailItem}>
+           <Text>
+            {property.Ac}   
+            <MaterialCommunityIcons name="fan-minus" size={24} color="black" />
+           </Text> 
+           </View>
+            <View style={styles.propertyDetailItem}>
+            <Text>
+              {property.Pool} 
+              <FontAwesome5 name="swimming-pool" size={24} color="black" />  
+              </Text> 
+               </View>
+            <View style={styles.propertyDetailItem}>
+             <Text>
+              {property.person} 
+              <FontAwesome6 name="person" size={24} color="black" />
+             </Text> 
+             </View>
+             </View>
           </View>
 
           <View style={styles.locationContainer}>
@@ -187,7 +224,7 @@ const ProductsDetails = ({ deleteProduct, switchView, isOwner }) => {
             <Text style={styles.commentsTitle}>Comments:</Text>
           </View>
 
-          <Bottomsheet />
+          <Bottomsheet propertyid={propertyid}/>
         </View>
       </ScrollView>
     </View>

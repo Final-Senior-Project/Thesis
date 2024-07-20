@@ -71,7 +71,7 @@ const Edit = () => {
 
           <Text style={styles.label}>Location</Text>
           <TextInput
-            style={[styles.input, styles.descriptionInput]}
+            style={[styles.input]}
             placeholder="Enter property location"
             multiline
             value={location}
@@ -79,13 +79,15 @@ const Edit = () => {
           />
 
           <Text style={styles.label}>Price</Text>
+          
           <TextInput
-            style={styles.input}
-            placeholder="Enter property price"
+            style={styles.priceContainer}
+            placeholder="$ Enter Your Price"
             keyboardType="numeric"
             value={Price}
             onChangeText={setPrice}
           />
+          
         </View>
 
         <TouchableOpacity style={styles.button} onPress={updateProperty}>
@@ -137,10 +139,10 @@ const styles = StyleSheet.create({
   },
   button: {
     alignSelf: 'flex-end',
-    backgroundColor: '#007BFF',
+    backgroundColor: '#4d8790',
     paddingVertical: 10,
     paddingHorizontal: 20,
-    borderRadius: 10,
+    borderRadius: 50,
     marginTop: 20,
     shadowOpacity: 0.2,
     shadowRadius: 5,
@@ -148,6 +150,16 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#fff',
     fontSize: 16,
+  },
+  priceContainer: {
+    flexDirection: 'row',
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 10,
+    paddingHorizontal: 4,
+    paddingVertical: 5,
+    backgroundColor: '#fff',
+    width:150
   },
 });
 

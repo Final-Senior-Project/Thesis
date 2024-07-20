@@ -16,13 +16,13 @@ const Subscribe = () => {
 
   const handleSubscription = async (plan) => {
     try {
-      if (postCount === 0) {
+      if (postCount === 3) {
         Toast.show({
           type: 'success',
           text1: 'Success',
-          text2: 'You can post for free!'
+          text2: 'You can post  !'
         });
-        navigation.navigate("AddProperty");
+        fetchPaymentSheetParams()
       } else {
         if (plan === "Free trial") {
           Toast.show({
@@ -33,7 +33,8 @@ const Subscribe = () => {
           return;
         }
 
-        const res = await axios.post(`${APP_API_URL}/subscribe`, {
+
+        const res = await axios.post(`${APP_API_URL}/`, {
           ownerid,
           plan,
         });
@@ -44,6 +45,9 @@ const Subscribe = () => {
             text1: 'Success',
             text2: 'Subscription successful!'
           });
+
+          await fetchPaymentSheetParams(plan);
+          await openPaymentSheet();
 
           await fetchPaymentSheetParams(plan);
           await openPaymentSheet();
@@ -65,35 +69,31 @@ const Subscribe = () => {
     }
   };
 
-  const fetchPaymentSheetParams = async (plan) => {
-    try {
-      const response = await axios.post(`${APP_API_URL}/payment/${plan}`);
-      const { paymentIntent } = response.data;
-      const initResponse = await initPaymentSheet({
-        merchantDisplayName: 'finalproj',
-        paymentIntentClientSecret: paymentIntent,
-      });
-      if (initResponse.error) {
-        console.error('Error initializing payment sheet:', initResponse.error);
-        Alert.alert(`Error code: ${initResponse.error.code}`, initResponse.error.message);
-      }
-    } catch (error) {
-      console.error('Error fetching payment sheet params:', error);
-    }
+  const fetchPaymentSheetParams = async () => {
+    const response = await axios.post(`${APP_API_URL}/payment/${222}`);
+    const { paymentIntent } = response.data;
+    const initResponse = initPaymentSheet({
+      merchantDisplayName: "finalproj",
+      paymentIntentClientSecret: paymentIntent,
+    });
+    return initResponse;
   };
 
   const openPaymentSheet = async () => {
     try {
       const { error } = await presentPaymentSheet();
       if (error) {
-        Alert.alert(`Error code: ${error.code}`, error.message);
+        alert(`Error code: ${error.code}`, error.message);
         console.error("Error presenting payment sheet:", error);
       } else {
         axios
-          .get(`${APP_API_URL}/owner/booked/${ownerid}`)
+          .get(`${APP_API_URL}/owner/booked/${userid}`)
           .then(() => {
-            Alert.alert("Payment Successful", "Your payment has been processed successfully!");
-            axios.get(`${APP_API_URL}/owner/acceptBooking/${ownerid}`);
+            alert(
+              "Payment Successful",
+              "Your payment has been processed successfully!"
+            );
+            navigation.navigate("add")
           })
           .catch((error) => {
             console.error("Error processing payment:", error);
@@ -102,7 +102,8 @@ const Subscribe = () => {
     } catch (error) {
       console.error("Error presenting payment sheet:", error);
     }
-  };
+  };  u
+  seEffect(()=>{fetchPaymentSheetParams()},[])
 
   return (
     <>
@@ -114,7 +115,7 @@ const Subscribe = () => {
           info={["1 User", "add multiple homes"]}
           button={{
             title: "GET STARTED",
-            onPress: () => handleSubscription("Free trial"),
+            onPress: () => handleSubscription(),
           }}
         />
         <PricingCard
@@ -124,7 +125,7 @@ const Subscribe = () => {
           info={["1 User", "add multiple homes"]}
           button={{
             title: "GET STARTED",
-            onPress: () => handleSubscription("3 month"),
+            onPress: () =>openPaymentSheet(),
           }}
         />
         <PricingCard
@@ -134,7 +135,7 @@ const Subscribe = () => {
           info={["1 User", "add multiple homes"]}
           button={{
             title: "GET STARTED",
-            onPress: () => handleSubscription("6 month"),
+            onPress: () => openPaymentSheet(),
           }}
         />
       </ScrollView>

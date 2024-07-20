@@ -38,7 +38,7 @@ app.listen(PORT, () => {
 // const initApp = async () => {
 //   console.log("Testing the database connection..");
 //      try {
-//          await sequelize.sync({alter :true});
+//          await sequelize.sync({force :true});
 //          console.log("Connection has been established successfully.");
 
 

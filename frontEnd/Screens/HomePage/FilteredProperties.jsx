@@ -11,6 +11,7 @@ import {
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { APP_API_URL } from "../../env";
 import SessionStorage from "react-native-session-storage";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const FilteredProperties = () => {
   const navigation = useNavigation();
@@ -63,7 +64,10 @@ const FilteredProperties = () => {
             />
           <View style={styles.propertyInfo}>
             <Text style={styles.propertyTitle}>{property.Name}</Text>
-            <Text style={styles.propertyLocation}>{property.location}</Text>
+            <Text style={styles.propertyLocation}>
+                    <MaterialIcons name="location-pin" size={18} color="grey" />
+                    {property.location}
+                  </Text>
             <Text style={styles.propertyPrice}>
               dt {property.Price} / Visit
             </Text>
@@ -89,21 +93,21 @@ const styles = StyleSheet.create({
   },
   propertyItem: {
     backgroundColor: "#fff",
-    borderRadius: 50,
+    borderRadius: 15,
     padding: 10,
     marginBottom: 10,
     flexDirection: "row",
     alignItems: "center",
     shadowColor: "#000",
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.3,
     shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 3,
-    elevation: 1,
+    shadowRadius: 5,
+    elevation: 3,
   },
   propertyImage: {
     width: 150,
     height: 100,
-    borderRadius: 5,
+    borderRadius: 30,
     marginRight: 10,
   },
   propertyInfo: {

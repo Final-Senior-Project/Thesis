@@ -9,12 +9,12 @@ import CommentCard from '../Screens/Comment/CommentCard';
 // import AddComment from '../Screens/AddComment';
 import { useRoute, useNavigation } from "@react-navigation/native";
 
-const Bottomsheet= () => {
+const Bottomsheet= ({propertyid}) => {
   const route = useRoute();
  
   const propertyId = route.params?.propertyid;
   const userid = route.params?.userid;
-
+console.log("prper",propertyId,propertyid);
   const bottomSheetModalRef = useRef(null);
   const snapPoints = useMemo(() => ['25%', '50%',"100%"], []);
 
@@ -43,7 +43,7 @@ const Bottomsheet= () => {
           <BottomSheetView >
             <Text>Comments </Text>
             
-            <CommentCard  />              
+            <CommentCard propertyId={propertyId} />              
             {/* <AddComment propertyId={propertyId} userId={userid} /> */}
              
           </BottomSheetView>
@@ -74,15 +74,17 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   container: {
-    backgroundColor: '#b3b3b3',
+    backgroundColor: '#cedfe4',
     padding: 2,
     borderRadius: 10,
     width:60,
     height:30,
-    left:27
+    
+    margin:'auto'
+    
   },
   see:{
-   color:"#333333",
+   color:"#000000",
    margin:"auto",
    top:3,
    left:2

@@ -62,8 +62,11 @@ const AllPropertiesPage = () => {
             />
           <View style={styles.propertyDetails}>
             <Text style={styles.propertyTitle}>{property.Name}</Text>
-            <MaterialIcons name="location-pin" size={18} color="grey" />
-            <Text style={styles.propertyLocation}> {property.location}</Text>
+            
+            <Text style={styles.propertyLocation}>
+                    <MaterialIcons name="location-pin" size={18} color="grey" />
+                    {property.location}
+                  </Text>
             <Text style={styles.propertyPrice}>
               dt {property.Price} / Visit
             </Text>
@@ -101,11 +104,16 @@ const styles = StyleSheet.create({
   },
   propertyDetails: {
     flex: 1,
+    flexDirection: "column",
+    justifyContent: "flex-start",
   },
   propertyTitle: {
     fontSize: 16,
     fontWeight: "bold",
-    marginBottom: 35,
+    marginBottom: 5,
+  },
+  propertyLocation: {
+    marginBottom: 5,
   },
   propertyPrice: {
     color: "#00796b",
@@ -115,6 +123,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  
 });
+
 export default AllPropertiesPage;

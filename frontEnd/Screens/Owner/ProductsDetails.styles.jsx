@@ -108,5 +108,19 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#000000",
     
-  }
+  },
+  extraTitle:{
+    fontSize: 17,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    left:40
+  },
+  propertyDetailsContainer:{
+    display: "flex",
+    gap:25,
+    flexDirection: "row",
+    margin:"auto",
+    padding:40,
+    left:-10
+  },
 });

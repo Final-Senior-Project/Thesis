@@ -370,7 +370,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#000000",
     marginBottom: 50,
-  },
+    bottom:-30 
+  }
 });
 
 export default SignUp;

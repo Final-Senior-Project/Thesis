@@ -1,33 +1,34 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable ,Image} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import styles from "./OwnerChatStyle";
 import { useNavigation } from "@react-navigation/native";
-import SessionStorage from "react-native-session-storage";
+import axios from "axios";
+import { APP_API_URL } from "../../env";
 
-
-const OwnerAllChats = ({ iduser }) => {
+const OwnerAllChats = ({ data }) => {
   const navigation = useNavigation();
-  const [owner,setOwner]=useState([])
-  const ownerId=SessionStorage.getItem('ownerid')
-  console.log("testitem", iduser);
-  const getOwner=async()=>{
-    const res= await axios.get(`${APP_API_URL}/user/user/${ownerId}`)
+  const [user, setUser] = useState(null);
+
+  const getUser=async()=>{
+    const res= await axios.get(`${APP_API_URL}/user/user/${data}`)
     try {
-setOwner(res.data)
-console.log('owner',res.data);
+      console.log('userchat',res.data[0].image);
+      setUser(res.data)
 
       
     } catch (error) {
         console.log("error",error);
     }
 }
-useEffect(()=>getOwner(),[])
+  useEffect(()=>{getUser()},[data])
+
   const handleNavigation = () => {
     navigation.navigate("ownerchats", {
-      userid: iduser,
+      userid: data,
     });
   };
+
   return (
     <Pressable
       style={styles.cchat}
@@ -35,26 +36,27 @@ useEffect(()=>getOwner(),[])
         handleNavigation();
       }}
     >
-      <Ionicons
-        name="person-circle-outline"
-        size={45}
-        color="black"
-        style={styles.cavatar}
+         <Image 
+        source={{ uri: user ? user[0].image : "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ba/29/5c/img-worlds-of-adventure.jpg?w=1200&h=1200&s=1" }} 
+        style={styles.cavatar} 
       />
-
       <View style={styles.crightContainer}>
         <View>
-          <Text style={styles.cusername}>{iduser}</Text>
-
+          <Text style={styles.cusername}>
+            {user ? user[0].FirstName : "Loading..."}
+          </Text>
           <Text style={styles.cmessage}>
-            {iduser?.message ? iduser.message : "Tap to start chatting"}
+            { "Tap to start chatting"}
           </Text>
         </View>
         <View>
-          <Text style={styles.ctime}>{iduser?.time ? iduser.time : "now"}</Text>
+          <Text style={styles.ctime}>
+            { "now"}
+          </Text>
         </View>
       </View>
     </Pressable>
   );
 };
+
 export default OwnerAllChats;

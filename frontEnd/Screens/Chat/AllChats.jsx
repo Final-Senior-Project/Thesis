@@ -43,16 +43,16 @@ useEffect(()=>getUser(),[])
 
       <View style={styles.crightContainer}>
         <View>
-          <Text style={styles.cusername}>{idOwner}</Text>
+          <Text style={styles.cusername}>test</Text>
 <Text style={styles.cmessage}>
-            {idOwner?.messages ? idOwner.message : "Tap to start chatting"}
+            { "Tap to start chatting"}
           </Text>
         </View>
         <View>
           <Text style={styles.ctime}>{idOwner?.time ? idOwner.time : "now"}</Text>
         </View>
       </View>
-      <buttonNavigation/>
+      {/* <buttonNavigation/> */}
     </Pressable>
   );
 };

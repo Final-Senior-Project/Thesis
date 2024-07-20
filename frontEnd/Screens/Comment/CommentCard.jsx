@@ -13,9 +13,9 @@ const CommentCard = () => {
     }, 2000);
   }, []);
   const route = useRoute()
-  const propertyId = route.params?.propertyid;
+  const propertyId = route.params?.propertyId?route.params?.propertyId:route.params?.propertyid;
   const [comments, setComments] = useState([]);
-
+console.log(propertyId,"property=>>",route.params);
   const getComments = () => {
     axios.get(`${APP_API_URL}/comment/getAll/${propertyId}`)
       .then(res => {

@@ -6,9 +6,10 @@ import { SimpleLineIcons } from "@expo/vector-icons";
 import { StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import OwnerHomePage from "./OwnerHomePage";
+import OwnerChatRoom from "./OwnerChatRoom";
 import SessionStorage from "react-native-session-storage";
 import { MaterialIcons } from '@expo/vector-icons';
-
+import { Ionicons } from "@expo/vector-icons";
 const Tab = createBottomTabNavigator();
 
 const OwnerBottomNavigation = () => {
@@ -44,6 +45,13 @@ const OwnerBottomNavigation = () => {
         component={Add}
         options={{
           tabBarIcon: ({ focused }) => renderIconWithDot(MaterialIcons, "add", focused),
+        }}
+      />
+        <Tab.Screen
+        name="Chat"
+        component={OwnerChatRoom}
+        options={{
+          tabBarIcon: ({ focused }) => renderIconWithDot(Ionicons, "chatbox-ellipses-outline", focused),
         }}
       />
       <Tab.Screen

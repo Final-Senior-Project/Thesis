@@ -6,8 +6,10 @@ import { APP_API_URL } from '../../env';
 import SessionStorage from 'react-native-session-storage';
 import Toast from 'react-native-toast-message';
 import { FontAwesome } from '@expo/vector-icons';
+import { useToast } from 'react-native-fast-toast'
 
 const AddComment = ({ propertyId }) => {
+  const toast = useToast()
   const [content, setContent] = useState("");
   const id = SessionStorage.getItem('userid');
   console.log('user ID:', id);
@@ -22,12 +24,10 @@ const AddComment = ({ propertyId }) => {
       try {
         const res = await axios.post(`${APP_API_URL}/comment/post/${id}/${propertyId}`, { content, userId: id, idProperty: propertyId });
         setContent('')
-        Toast.show({
+        toast.show("Comment Added Successfully !",{
           type: 'success',
-          text1: 'Success',
-          text2: 'Comment added successfully',
-          position: 'bottom',
-          bottomOffset:800,
+      animationType:"slide-in",
+          position: 'top',
         });
         console.log(res.data, "comment");
       } catch (err) {
@@ -52,13 +52,17 @@ const AddComment = ({ propertyId }) => {
   }
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder="Add a comment"
-        value={content}
-        onChangeText={setContent}
-      />
-      <Button title="Add Comment" onPress={handleAddComment}  />
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Add a comment"
+          value={content}
+          onChangeText={setContent}
+        />
+        <TouchableOpacity onPress={handleAddComment} style={styles.sendButton}>
+          <FontAwesome name="send-o" size={22} color="black" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

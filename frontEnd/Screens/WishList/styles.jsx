@@ -21,19 +21,26 @@ const styles = StyleSheet.create({
   propertyImage: {
     width: 150,
     height: 100,
-    borderRadius: 5,
+    borderRadius: 30,
     marginRight: 10,
   },
   propertyDetails: {
     flex: 1,
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    top:8
   },
   propertyTitle: {
     fontSize: 16,
     fontWeight: "bold",
-    marginBottom: 35,
+    marginBottom: 5,
+  },
+  propertyLocation: {
+    marginBottom: 5,
   },
   propertyPrice: {
     color: "#00796b",
+    top:-10
   },
   loader: {
     flex: 1,

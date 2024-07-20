@@ -75,7 +75,7 @@ const User = ({ data }) => {
             <tr key={booking.id}>
               <td>{booking.checkIn}</td>
               <td>{booking.checkOut}</td>
-              <td>{booking.PropertyId}</td>
+              {/* <td>{booking.PropertyId}</td> */}
             </tr>
           ))}
         </tbody>
