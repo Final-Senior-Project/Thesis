@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="flex ">
+      <body className="flex " style={{ backgroundColor: '#f0f4f8' }}>
         <Home/> 
       <>
         {children}

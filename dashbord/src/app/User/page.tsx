@@ -15,7 +15,7 @@ const Owner = () => {
 
   const getOwners = () => {
     axios
-      .get('http://localhost:4000/api/owner/getOwner')
+      .get('http://localhost:4000/api/user/get')
       .then((response) => {
         setOwners(response.data);
         console.log('data', response.data);
@@ -30,8 +30,6 @@ const Owner = () => {
   }, []);
 
   const deleteOwner = (id) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this owner?");
-    if (confirmDelete) {
       axios
         .delete(`http://localhost:4000/api/owner/del/${id}`)
         .then(() => {
@@ -39,10 +37,10 @@ const Owner = () => {
           toast.success('Owner deleted successfully!');
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err)
           toast.error('Failed to delete owner.');
         });
-    }
+    
   };
 
   const columns = [
