@@ -1,0 +1,53 @@
+/* styles.module.css */
+.card {
+    background-color: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-bottom: 1rem;
+  }
+  .header {
+    padding: 1rem;
+    background-color: #f3f4f6;
+    border-bottom: 2px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #4b5563;
+  }
+  .content {
+    padding: 1rem;
+  }
+  .sales {
+    margin-bottom: 1rem;
+  }
+  .label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #6b7280;
+  }
+  .value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #111827;
+  }
+  .progress {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .orders {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #6b7280;
+  }
+  .yoy {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #6b7280;
+  }
+  
